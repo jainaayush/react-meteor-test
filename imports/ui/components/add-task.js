@@ -1,6 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function AddTask() {
+  const [task, setTask] = useState("");
+  
+  const handleCreateTask = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const body = {
+        title: task.trim(),
+        dueDate: new Date(),
+        repeat: {
+          interval: 3
+        },
+        status: 'incomplete',
+        customFields: [],
+        color: '#4e42c3',
+      }
+
+      Meteor.call('tasks.create', body);
+      setTask("");
+    }
+  }
+
   return (
     <form className="add-task" noValidate="">
       <div>
@@ -16,8 +37,9 @@ export default function AddTask() {
                 placeholder="Add new task"
                 type="text"
                 autoComplete="off"
-                value=""
-                onChange={() => { }}
+                value={task}
+                onKeyDown={handleCreateTask}
+                onChange={e => setTask(e.target.value)}
               />
             </label>
           </div>

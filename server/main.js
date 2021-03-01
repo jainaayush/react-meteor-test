@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Tasks } from '/imports/api/tasks';
 import { Random } from 'meteor/random';
+import '/imports/api/tasks/methods';
 
 const testData = [
   {
